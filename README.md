@@ -107,7 +107,6 @@ TO-DO List
 --------------------
 Objetivos Primários:
 
-- [ ] Abrir matéria no aplicativo;
 - [ ] Criar editorias baseadas no editorias do site;
 - [ ] Criar o itens "salvos"
 
