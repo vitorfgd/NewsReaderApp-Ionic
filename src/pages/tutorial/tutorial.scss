@@ -1,0 +1,37 @@
+page-tutorial {
+  .toolbar-background {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  .slide-zoom {
+    height: 100%;
+  }
+
+  .slide-title {
+    margin-top: 3rem;
+  }
+
+  .slide-image {
+    max-height: 40%;
+    max-width: 60%;
+    margin: 36px 0;
+    margin-top: 20%;
+  }
+
+  b {
+    font-weight: 400;
+  }
+
+  p {
+    padding: 0 40px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #60646B;
+
+    b {
+      color: #000000;
+    }
+  }
+
+}

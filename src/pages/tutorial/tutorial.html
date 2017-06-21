@@ -1,0 +1,22 @@
+<ion-header no-shadow>
+  <ion-navbar color="primary">
+    <ion-buttons end *ngIf="showSkip">
+      <button ion-button (click)="startApp()">Pular</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+  <ion-slides pager="true" (ionWillChange)="onSlideChangeStart($event)">
+    <ion-slide>
+      <img src="assets/img/ica-slidebox-img-3.png" class="slide-image" />
+      <h4 class="slide-title">Bem-vindo!</h4>
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/img/ica-slidebox-img-4.png" class="slide-image" />
+      <h5 class="slide-title">É assim que a mensagem fica!</h5>
+      <br/>
+      <button ion-button icon-right big (click)="startApp()">Entendi!<ion-icon name="arrow-forward"></ion-icon></button>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

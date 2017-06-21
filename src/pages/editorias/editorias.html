@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Editorias</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+
+    <ion-item *ngFor="let feed of ids">
+      {{feed.name}}
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

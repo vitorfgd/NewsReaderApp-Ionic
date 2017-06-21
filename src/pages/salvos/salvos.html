@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Salvos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <button ion-item *ngFor="let feed of feeds" (click)="itemSelected(feed)" no-lines>
+      <ion-thumbnail item-left>
+        <img [src]=" feed.img ">
+      </ion-thumbnail>
+      <h2>{{feed.post_title}}</h2>
+      <p>{{feed.url}}</p>
+  </button>
+</ion-content>
