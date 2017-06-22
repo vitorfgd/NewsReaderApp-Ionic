@@ -41,8 +41,12 @@ export class HomePage {
     this.toggled = false;
     this.fetchContent();
 
-    // this.storage.get('saved_posts').then(itens => this.itensSalvos = itens);
-    this.itensSalvos = '';
+    this.storage.get('saved_posts').then(itens => this.itensSalvos = itens);
+    if (this.itensSalvos == ""){
+      this.itensSalvos = "";
+    } else {
+      alert (this.itensSalvos);
+    }
 
     this.searchTermControl = new FormControl();
     this.searchTermControl.valueChanges.debounceTime(1000).distinctUntilChanged().subscribe(search => {
