@@ -27,6 +27,8 @@ export class HomePage {
   private itensSalvos: string = '';
   private remove: string = '';
 
+  private slug: string;
+
   private toggled: boolean;
 
   public hasFilter: boolean = false;
@@ -39,14 +41,16 @@ export class HomePage {
 
     this.remove = '';
     this.toggled = false;
-    this.fetchContent();
 
-    this.storage.get('saved_posts').then(itens => this.itensSalvos = itens);
-    if (this.itensSalvos == ""){
-      this.itensSalvos = "";
+    this.storage.get ('slug').then(itens => this.slug = itens);
+    if (this.slug == null || this.slug == ''){
+      this.slug = "";
     } else {
-      alert (this.itensSalvos);
+      this.url = this.url + '?categories=';
+      this.url = this.url + this.slug;
     }
+
+    this.fetchContent();
 
     this.searchTermControl = new FormControl();
     this.searchTermControl.valueChanges.debounceTime(1000).distinctUntilChanged().subscribe(search => {
@@ -76,42 +80,39 @@ export class HomePage {
       });
   }
 
-  // itemSelected (url: string):void {
-  //   let browser = new InAppBrowser(url, '_system');
-  // }
-
   itemSelected (feed) {
     this.navCtrl.push (NoticiaPage, {
       feed: feed
     });
   }
 
-  saveItem (post) {
+  getSavedPosts (){
     this.storage.get('saved_posts').then(itens => this.itensSalvos = itens);
-    this.doSave (this.itensSalvos, post);
   }
 
-  doSave (itensSalvos, post){
-    if (itensSalvos.includes(post)){
-      let alert = this.alertCtrl.create({
-        title: 'Esta matéria foi removida com sucesso!',
-        subTitle: 'Esta matéria foi removida de sua lista de favoritos' + post,
-        buttons: ['OK']
-      });
+  saveItem (post) {
+    this.getSavedPosts ();
+    alert (this.itensSalvos);
+    if (this.itensSalvos.includes(post)){
+      // let alert = this.alertCtrl.create({
+      //   title: 'Esta matéria foi removida com sucesso!',
+      //   subTitle: 'Esta matéria foi removida de sua lista de favoritos' + post,
+      //   buttons: ['OK']
+      // });
       this.remove = post + ",";
-      itensSalvos = itensSalvos.replace (this.remove, "");
-      alert.present();
-      this.storage.set ('saved_posts', itensSalvos);
+      this.itensSalvos = this.itensSalvos.replace (this.remove, "");
+      this.storage.set ('saved_posts', this.itensSalvos);
+      // alert.present();
     } else {
-      let alert = this.alertCtrl.create({
-        title: 'Item foi salvo com sucesso!',
-        subTitle: 'Esta matéria foi salva em sua lista de favoritos com sucesso.' + post,
-        buttons: ['OK']
-      });
-      itensSalvos = itensSalvos + post;
-      itensSalvos = itensSalvos + (",");
-      alert.present();
-      this.storage.set ('saved_posts', itensSalvos);
+      // let alert = this.alertCtrl.create({
+      //   title: 'Item foi salvo com sucesso!',
+      //   subTitle: 'Esta matéria foi salva em sua lista de favoritos com sucesso.' + post,
+      //   buttons: ['OK']
+      // });
+      this.itensSalvos = this.itensSalvos + post;
+      this.itensSalvos = this.itensSalvos + (",");
+      this.storage.set ('saved_posts', this.itensSalvos);
+      // alert.present();
     }
   }
 

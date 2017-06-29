@@ -58,7 +58,7 @@ export class EditoriasPage {
     for (let name in this.names){
       this.slug += name;
       this.slug += ",";
-      alert (this.slug);
+      this.storage.set ('slug', this.slug);
     }
   }
 
