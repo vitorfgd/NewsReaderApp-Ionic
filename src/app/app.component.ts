@@ -42,7 +42,7 @@ export class MyApp {
     this.pages = [
 
       { title: 'Home', component: HomePage },
-      { title: 'Editorias', component: EditoriasPage},
+      // { title: 'Editorias', component: EditoriasPage},
       { title: 'Itens Salvos', component: SalvosPage},
       { title: 'Área do Leitor', component: LeitorPage},
       { title: 'Sobre a Equipe', component: AboutPage}

@@ -20,12 +20,12 @@
 
   <ion-card *ngFor="let feed of feeds">
     <img (click)="itemSelected(feed)" [src]="feed.img" />
-    <ion-card-content (click)="itemSelected(feed)">
+    <ion-card-content (click)="itemSelected(feed)" (swipe)="swipeEvent($event, feed)">
       <ion-card-title>
         {{feed.post_title}}
       </ion-card-title>
       <p [innerHTML]="feed.post_excerpt" id="justify"></p><br/>
-      <span [innerHTML]="feed.post_date" class="data_e_hora"></span> - <span>{{feed.autor}}</span>
+      <span [innerHTML]="feed.post_date" class="data_e_hora"></span> - <span>{{feed.post_author}}</span>
       <!-- <p [innerHTML]="feed.post_excerpt"></p> -->
     </ion-card-content>
     <ion-row no-padding>
