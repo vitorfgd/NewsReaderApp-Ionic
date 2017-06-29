@@ -15,52 +15,39 @@ export class SalvosPage {
 
   public feeds: Array<any>;
   public noFilter: Array<any>;
-  private urlBase: string = "https://api.myjson.com/bins/1awtvn";
   public saved_feeds: string = '';
-  private url: string = '';
+  private urlBase: string = "http://www.ielusc.br/aplicativos/wordpress_revi/wp-json/app/v1/posts";
+  private url: string;
 
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams, public http: Http, public storage: Storage) {
-
-    // this.storage.get('saved_posts').then((itens) => {
-    //   if (itens == ""){
-    //     alert ("Não há itens salvos.");
-    //   } else {
-    //     this.saved_feeds = itens;
-    //     this.saved_feeds = this.saved_feeds.substring (0, this.saved_feeds.length - 1);
-    //     this.url = this.urlBase + ('?id=');
-    //     this.url = this.url + (this.saved_feeds);
-    //     // alert (this.urlBase);
-    //     // alert (this.url);
-    //   }
-    // });
-
-    this.fetchContent();
+    // this.fetchContent();
+    this.returnURL ();
   }
 
-  returnURL (){
-    return this.url;
+  returnURL () {
+    this.storage.get('saved_posts').then((itens) => {
+      if (itens == ""){
+        alert ("Não há itens salvos.");
+        this.url = this.urlBase;
+      } else {
+        this.saved_feeds = itens;
+        this.saved_feeds = this.saved_feeds.substring (0, this.saved_feeds.length - 1);
+        this.url = this.urlBase + ('?id=');
+        this.url += this.saved_feeds;
+      }
+
+      this.fetchContent(this.url);
+    });
   }
 
-  fetchContent ():void {
+  fetchContent (urlToSearch):void {
 
     let loading = this.loadingCtrl.create({
       content: 'Buscando conteúdo...'
     });
 
-    this.storage.get('saved_posts').then((itens) => {
-      if (itens == ""){
-        alert ("Não há itens salvos.");
-      } else {
-        this.saved_feeds = itens;
-        this.saved_feeds = this.saved_feeds.substring (0, this.saved_feeds.length - 1);
-        this.url = this.urlBase + ('?id=');
-        this.url = this.url + (this.saved_feeds);
-        alert (this.urlBase);
-        alert (this.url);
-      }
-    });
-
-    this.http.get(this.url).map(res => res.json())
+    alert (this.url);
+    this.http.get(urlToSearch).map(res => res.json())
       .subscribe(data => {
         this.feeds = data.data;
         this.noFilter = this.feeds;

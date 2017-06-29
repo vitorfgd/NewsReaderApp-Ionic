@@ -19,6 +19,8 @@ import { NoticiaPage } from '../pages/noticia/noticia';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { PostServiceProvider } from '../providers/post-service/post-service';
+import { UrlControlProvider } from '../providers/url-control/url-control';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     SocialSharing,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    PostServiceProvider,
+    UrlControlProvider
   ]
 })
 export class AppModule {}
