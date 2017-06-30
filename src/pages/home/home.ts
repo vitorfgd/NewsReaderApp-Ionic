@@ -9,6 +9,7 @@ import { NoticiaPage } from '../noticia/noticia';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import { PostServiceProvider } from '../../providers/post-service/post-service';
 
 @Component({
   selector: 'page-home',
@@ -33,19 +34,12 @@ export class HomePage {
   private slug: string = '';
   private toggled: boolean;
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public loadingCtrl: LoadingController, public http: Http, public actionSheetCtrl: ActionSheetController, private sharingVar: SocialSharing, public storage: Storage) {
+  constructor(private _postsvc: PostServiceProvider, public navCtrl: NavController, private alertCtrl: AlertController, public loadingCtrl: LoadingController, public http: Http, public actionSheetCtrl: ActionSheetController, private sharingVar: SocialSharing, public storage: Storage) {
 
     this.remove = '';
     this.toggled = false;
 
-    // this.storage.get ('slug').then(itens => this.slug = itens);
-    // if (this.slug == null || this.slug == ''){
-    //   this.slug = "";
-    // } else {
-    //   this.url = this.url + '?categories=';
-    //   this.url = this.url + this.slug;
-    // }
-
+    _postsvc.savedPosts.subscribe(sp => this.itensSalvos = sp);
     this.fetchContent();
 
     this.searchTermControl = new FormControl();
@@ -54,7 +48,17 @@ export class HomePage {
         this.filterItems();
       }
     })
+
+    // Código para implementação futura das editorias.
+    // this.storage.get ('slug').then(itens => this.slug = itens);
+    // if (this.slug == null || this.slug == ''){
+    //   this.slug = "";
+    // } else {
+    //   this.url = this.url + '?categories=';
+    //   this.url = this.url + this.slug;
+    // }
   }
+
 
   toggleSearch() {
     this.toggled = this.toggled ? false : true;
@@ -65,6 +69,8 @@ export class HomePage {
     let loading = this.loadingCtrl.create({
       content: 'Buscando conteúdo...'
     });
+
+    // alert (this.itensSalvos);
 
     loading.present();
 
@@ -128,7 +134,7 @@ export class HomePage {
     refresher.complete();
     this.fetchContent ();
   }
-  
+
 
   filterItems() {
     this.hasFilter = false;

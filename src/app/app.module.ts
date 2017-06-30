@@ -59,6 +59,7 @@ import { UrlControlProvider } from '../providers/url-control/url-control';
     SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PostServiceProvider,
+    UrlControlProvider,
     UrlControlProvider
   ]
 })
