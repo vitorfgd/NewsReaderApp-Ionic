@@ -40,6 +40,7 @@ export class HomePage {
     this.toggled = false;
 
     _postsvc.savedPosts.subscribe(sp => this.itensSalvos = sp);
+
     this.fetchContent();
 
     this.searchTermControl = new FormControl();
@@ -98,17 +99,10 @@ export class HomePage {
     }
   }
 
-
-  getSavedPosts (){
-    this.storage.get('saved_posts').then(itens => this.itensSalvos = itens);
-  }
-
-
   saveItem (post) {
-    // this.getSavedPosts ();
     if (this.itensSalvos.includes(post)){
       let alert = this.alertCtrl.create({
-        title: 'Esta matéria foi removida com sucesso!',
+        title: 'Matéria removida com sucesso!',
         subTitle: 'Esta matéria foi removida de sua lista de favoritos',
         buttons: ['OK']
       });
@@ -118,7 +112,7 @@ export class HomePage {
       alert.present();
     } else {
       let alert = this.alertCtrl.create({
-        title: 'Item foi salvo com sucesso!',
+        title: 'Matéria salva com sucesso!',
         subTitle: 'Esta matéria foi salva em sua lista de favoritos com sucesso.',
         buttons: ['OK']
       });
