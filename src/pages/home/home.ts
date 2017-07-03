@@ -30,7 +30,7 @@ export class HomePage {
   public searchTermControl: FormControl;
 
   private itensSalvos: string = '';
-  private remove: string = '';
+  private remove: string;
   private slug: string = '';
   private toggled: boolean;
 
@@ -41,7 +41,16 @@ export class HomePage {
 
     _postsvc.savedPosts.subscribe(sp => this.itensSalvos = sp);
 
-    this.fetchContent();
+    this.storage.get('saved_posts').then((itens) => {
+      this.itensSalvos = itens;
+
+      if (this.itensSalvos == null){
+        this.itensSalvos = '';
+      }
+      
+      alert (this.itensSalvos);
+      this.fetchContent();
+    });
 
     this.searchTermControl = new FormControl();
     this.searchTermControl.valueChanges.debounceTime(1000).distinctUntilChanged().subscribe(search => {
