@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, AlertController, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { NoticiaPage } from '../noticia/noticia';
@@ -17,36 +17,39 @@ export class SalvosPage {
   public noFilter: Array<any>;
   public saved_feeds: string = '';
   private urlBase: string = "http://www.ielusc.br/aplicativos/wordpress_revi/wp-json/app/v1/posts";
-  private url: string;
+  // private url: string;
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams, public http: Http, public storage: Storage) {
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams, public http: Http, public storage: Storage) {
+    // this.url = '';
     // this.fetchContent();
     this.returnURL ();
   }
 
   returnURL () {
+
+    let urlToSearch = '';
+
     this.storage.get('saved_posts').then((itens) => {
-      if (itens == ""){
-        alert ("Não há itens salvos.");
-        this.url += this.urlBase;
+      if (itens == "" || itens == null){
+        urlToSearch = this.urlBase + ('?ids=-1');
+        this.fetchContent(urlToSearch);
       } else {
         this.saved_feeds = itens;
         this.saved_feeds = this.saved_feeds.substring (0, this.saved_feeds.length - 1);
-        this.url = this.urlBase + ('?id=');
-        this.url += this.saved_feeds;
+        urlToSearch = this.urlBase + ('?ids=');
+        urlToSearch += this.saved_feeds;
+        this.fetchContent(urlToSearch);
       }
-
-      this.fetchContent(this.url);
     });
   }
 
-  fetchContent (urlToSearch):void {
+  fetchContent (urlToSearch:string):void {
 
     let loading = this.loadingCtrl.create({
       content: 'Buscando conteúdo...'
     });
 
-    alert (this.url);
+    alert (urlToSearch);
     this.http.get(urlToSearch).map(res => res.json())
       .subscribe(data => {
         this.feeds = data.data;
