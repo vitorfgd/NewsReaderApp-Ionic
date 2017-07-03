@@ -17,10 +17,8 @@ export class SalvosPage {
   public noFilter: Array<any>;
   public saved_feeds: string = '';
   private urlBase: string = "http://www.ielusc.br/aplicativos/wordpress_revi/wp-json/app/v1/posts";
-  // private url: string;
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams, public http: Http, public storage: Storage) {
-    // this.url = '';
     // this.fetchContent();
     this.returnURL ();
   }
@@ -49,7 +47,7 @@ export class SalvosPage {
       content: 'Buscando conteúdo...'
     });
 
-    alert (urlToSearch);
+    // alert (urlToSearch);
     this.http.get(urlToSearch).map(res => res.json())
       .subscribe(data => {
         this.feeds = data.data;

@@ -12,8 +12,10 @@ export class NoticiaPage {
 
   feed: Array <any>;
   private itensSalvos: string;
+  private remove: string = '';
 
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, public storage: Storage, private sharingVar: SocialSharing, public navParams: NavParams) {
+    this.remove = '';
     this.feed = [];
     this.feed = navParams.get ('feed');
     this.storage.get('saved_posts').then(itens => this.itensSalvos = itens);
@@ -22,19 +24,22 @@ export class NoticiaPage {
   saveItem (post) {
     if (this.itensSalvos.includes(post)){
       let alert = this.alertCtrl.create({
-        title: 'Esta matéria não foi salva!',
-        subTitle: 'Esta matéria foi salva em sua lista anteriormente.',
+        title: 'Matéria removida com sucesso!',
+        subTitle: 'Esta matéria foi removida de sua lista de favoritos',
         buttons: ['OK']
       });
+      this.remove = post + ",";
+      this.itensSalvos = this.itensSalvos.replace (this.remove, "");
+      this.storage.set ('saved_posts', this.itensSalvos);
       alert.present();
     } else {
       let alert = this.alertCtrl.create({
-        title: 'Item foi salvo com sucesso!',
-        subTitle: 'Esta matéria foi salva em sua lista com sucesso. + ',
+        title: 'Matéria salva com sucesso!',
+        subTitle: 'Esta matéria foi salva em sua lista de favoritos com sucesso.',
         buttons: ['OK']
       });
-      this.itensSalvos = this.itensSalvos.concat (post);
-      this.itensSalvos = this.itensSalvos.concat (",")
+      this.itensSalvos = this.itensSalvos + post;
+      this.itensSalvos = this.itensSalvos + (",");
       this.storage.set ('saved_posts', this.itensSalvos);
       alert.present();
     }
