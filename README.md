@@ -107,8 +107,9 @@ TO-DO List
 --------------------
 Objetivos Primários:
 
-- [ ] Criar editorias baseadas no editorias do site;
-- [ ] Criar o itens "salvos"
+- [ ] Categorias;
+- [ ] Ajustes Finais;
+- [ ] Barra de compartilhamento na notícia completa.
 
 Contribuindo
 --------------------
