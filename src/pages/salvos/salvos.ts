@@ -29,6 +29,12 @@ export class SalvosPage {
 
     this.storage.get('saved_posts').then((itens) => {
       if (itens == "" || itens == null){
+        let alert = this.alertCtrl.create({
+          title: 'Não há itens salvos.',
+          subTitle: 'Tente salvar algumas matérias na área principal do aplicativo!',
+          buttons: ['Entendi']
+        });
+        alert.present();
         urlToSearch = this.urlBase + ('?ids=-1');
         this.fetchContent(urlToSearch);
       } else {
