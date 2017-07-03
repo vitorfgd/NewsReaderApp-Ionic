@@ -174,8 +174,8 @@ export class HomePage {
   }
 
 
-  otherShare(link:string){
-    this.sharingVar.share("Genral Share Sheet", null, null, link)
+  otherShare(post_content:string, post_title:string, link:string){
+    this.sharingVar.share(post_content, post_title, null, link)
     .then(
       ()=>{ },
       ()=>{ }
