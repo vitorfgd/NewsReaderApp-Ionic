@@ -30,7 +30,7 @@ export class HomePage {
   public searchTermControl: FormControl;
 
   private itensSalvos: string = '';
-  private remove: string;
+  private remove: string = '';
   private slug: string = '';
   private toggled: boolean;
 
@@ -41,16 +41,7 @@ export class HomePage {
 
     _postsvc.savedPosts.subscribe(sp => this.itensSalvos = sp);
 
-    this.storage.get('saved_posts').then((itens) => {
-      this.itensSalvos = itens;
-
-      if (this.itensSalvos == null){
-        this.itensSalvos = '';
-      }
-      
-      alert (this.itensSalvos);
-      this.fetchContent();
-    });
+    this.fetchContent();
 
     this.searchTermControl = new FormControl();
     this.searchTermControl.valueChanges.debounceTime(1000).distinctUntilChanged().subscribe(search => {
@@ -66,7 +57,7 @@ export class HomePage {
     // } else {
     //   this.url = this.url + '?categories=';
     //   this.url = this.url + this.slug;
-    // }
+    //
   }
 
 
@@ -109,6 +100,11 @@ export class HomePage {
   }
 
   saveItem (post) {
+
+    if (this.itensSalvos == null){
+      this.itensSalvos = '';
+    }
+
     if (this.itensSalvos.includes(post)){
       let alert = this.alertCtrl.create({
         title: 'Matéria removida com sucesso!',
