@@ -41,11 +41,11 @@ export class MyApp {
 
     this.pages = [
 
-      { title: 'Home', component: HomePage },
-      // { title: 'Editorias', component: EditoriasPage},
+      { title: 'Últimas Notícias', component: HomePage },
+      { title: 'Editorias', component: EditoriasPage},
       { title: 'Itens Salvos', component: SalvosPage},
-      { title: 'Área do Leitor', component: LeitorPage},
-      { title: 'Sobre a Equipe', component: AboutPage}
+      { title: 'Espaço do Leitor', component: LeitorPage},
+      { title: 'Sobre a Revi', component: AboutPage}
 
     ];
   }
