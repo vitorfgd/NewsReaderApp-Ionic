@@ -21,6 +21,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { PostServiceProvider } from '../providers/post-service/post-service';
 import { UrlControlProvider } from '../providers/url-control/url-control';
+import { BypassIframePipe } from '../pipes/bypass-iframe/bypass-iframe';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { UrlControlProvider } from '../providers/url-control/url-control';
     EditoriasPage,
     SalvosPage,
     TutorialPage,
-    NoticiaPage
+    NoticiaPage,
+    BypassIframePipe
   ],
   imports: [
     BrowserModule,

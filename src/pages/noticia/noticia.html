@@ -3,15 +3,16 @@
     <ion-title>REVI</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content class="full-notice">
   <ion-card>
-    <img [src]="feed.img" />
+    <!-- <img [src]="feed.img" /> -->
     <ion-card-content>
       <ion-card-title>
         {{feed.post_title}}
       </ion-card-title>
-      <p [innerHTML]="feed.post_content" id="justify"></p><br/>
-      <span [innerHTML]="feed.post_date" class="data_e_hora"></span> - <span>{{feed.autor}}</span>
+      <p [innerHTML]="feed.post_content | bypassIframe"></p>
+      <br/>
+      <span [innerHTML]="feed.post_date" class="data_e_hora"></span> - <span>{{feed.post_author}}</span>
     </ion-card-content>
     <ion-row no-padding>
       <ion-col>
@@ -20,7 +21,7 @@
         </button>
       </ion-col>
       <ion-col text-right>
-        <button ion-button clear small (click)="otherShare(feed.guid)" color="primary" icon-left>
+        <button ion-button clear small (click)="otherShare(feed.post_excerpt, feed.post_title, feed.url)" color="primary" icon-left>
           <ion-icon name='share-alt'></ion-icon>
         </button>
       </ion-col>

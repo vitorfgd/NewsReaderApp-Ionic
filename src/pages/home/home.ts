@@ -13,7 +13,8 @@ import { PostServiceProvider } from '../../providers/post-service/post-service';
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
+  host: {'class': 'home-page'}
 })
 
 export class HomePage {
@@ -21,7 +22,8 @@ export class HomePage {
   @ViewChild(Content) content: Content;
 
   public feeds: Array <any>;
-  private url: string = "http://www.ielusc.br/aplicativos/wordpress_revi/wp-json/app/v1/posts";
+  private pagerParam : any = 1;
+  private url : string = "";
 
   public saved_feeds: string = '';
   public hasFilter: boolean = false;
@@ -61,10 +63,14 @@ export class HomePage {
   }
 
 
+  getUrl(){
+    this.url = "http://www.ielusc.br/aplicativos/wordpress_revi/wp-json/app/v1/posts?page=" + this.pagerParam;
+    return this.url;
+  }
+
   toggleSearch() {
     this.toggled = this.toggled ? false : true;
   }
-
 
   fetchContent ():void {
     let loading = this.loadingCtrl.create({
@@ -75,7 +81,7 @@ export class HomePage {
 
     loading.present();
 
-    this.http.get(this.url).map(res => res.json())
+    this.http.get(this.getUrl()).map(res => res.json())
       .subscribe(data => {
         this.feeds = data.data;
         this.noFilter = this.feeds;
@@ -134,6 +140,17 @@ export class HomePage {
     this.fetchContent ();
   }
 
+
+  doInfinite(infiniteScroll) {
+    this.pagerParam ++;
+    console.log(this.pagerParam);
+    this.http.get(this.getUrl()).map(res => res.json()).subscribe(data => {
+        this.feeds = this.feeds.concat(data.data);
+        this.noFilter = this.feeds;
+        infiniteScroll.complete();
+    });
+  }
+  
 
   filterItems() {
     this.hasFilter = false;

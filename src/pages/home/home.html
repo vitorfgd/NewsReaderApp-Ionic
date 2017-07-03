@@ -14,19 +14,26 @@
 <ion-content>
 
   <ion-refresher (ionRefresh)="doRefresh($event)" [pullMin]=150>
-    <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Atualizando...">
+    <ion-refresher-content pullingIcon="ios-arrow-dropdown-outline" refreshingSpinner="circles" refreshingText="Atualizando...">
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-card *ngFor="let feed of feeds">
-    <img (click)="itemSelected(feed)" [src]="feed.img" />
+  <ion-card *ngFor="let feed of feeds" (swipe)="swipeEvent($event, feed)">
+
+    <div *ngIf="feed.img != null" class="image-wrapper">
+      <img class="center" (click)="itemSelected(feed)" [src]="feed.img" />
+    </div>
+
     <ion-card-content (click)="itemSelected(feed)" (swipe)="swipeEvent($event, feed)">
       <ion-card-title>
         {{feed.post_title}}
       </ion-card-title>
-      <p [innerHTML]="feed.post_excerpt" id="justify"></p><br/>
-      <span [innerHTML]="feed.post_date" class="data_e_hora"></span> - <span>{{feed.post_author}}</span>
-      <!-- <p [innerHTML]="feed.post_excerpt"></p> -->
+      <p [innerHTML]="feed.post_excerpt" id="justify"></p>
+      <div class="post-data">
+        <span>por {{feed.post_author}}</span>
+        <br />
+        <ion-icon name="ios-clock-outline"></ion-icon><span [innerHTML]="feed.post_date" class="data_e_hora"></span>
+      </div>
     </ion-card-content>
     <ion-row no-padding>
       <ion-col>
@@ -46,4 +53,8 @@
       </ion-col>
     </ion-row>
   </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
