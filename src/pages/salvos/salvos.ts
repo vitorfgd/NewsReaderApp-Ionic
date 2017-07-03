@@ -28,7 +28,7 @@ export class SalvosPage {
     this.storage.get('saved_posts').then((itens) => {
       if (itens == ""){
         alert ("Não há itens salvos.");
-        this.url = this.urlBase;
+        this.url += this.urlBase;
       } else {
         this.saved_feeds = itens;
         this.saved_feeds = this.saved_feeds.substring (0, this.saved_feeds.length - 1);
