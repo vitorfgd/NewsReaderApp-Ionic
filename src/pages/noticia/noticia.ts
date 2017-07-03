@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, AlertController, NavController, NavParams } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Storage } from '@ionic/storage';
+import { PostServiceProvider } from '../../providers/post-service/post-service';
 
 @IonicPage()
 @Component({
@@ -14,11 +15,11 @@ export class NoticiaPage {
   private itensSalvos: string;
   private remove: string = '';
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public storage: Storage, private sharingVar: SocialSharing, public navParams: NavParams) {
+  constructor(private _postsvc: PostServiceProvider, public navCtrl: NavController, private alertCtrl: AlertController, public storage: Storage, private sharingVar: SocialSharing, public navParams: NavParams) {
     this.remove = '';
     this.feed = [];
     this.feed = navParams.get ('feed');
-    this.storage.get('saved_posts').then(itens => this.itensSalvos = itens);
+    _postsvc.savedPosts.subscribe(sp => this.itensSalvos = sp);
   }
 
   saveItem (post) {
